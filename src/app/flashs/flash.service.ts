@@ -29,6 +29,7 @@ export class FlashService {
   deleteFlash(id: Flash["id"]) {
     let deleteFlashIndex = this.flashs.findIndex(flash => flash.id == id)
     this.flashs = [...this.flashs.slice(0, deleteFlashIndex), ...this.flashs.slice(deleteFlashIndex + 1)]
+    this.flashs$.next(this.flashs)
   }
   updateFlashs(flash: Flash, index = this.flashs.length) {
     // Push flash into last position if not provided
