@@ -6,7 +6,7 @@ export interface Flash {
     show: boolean,
 }
 export class Flash implements Flash {
-    constructor(id: number, question: string, answer: string, result: boolean | null = null) {
+    constructor(public id: number, public question: string, public answer: string, result: boolean | null = null) {
         this.result = result
         this.show = false
     }
