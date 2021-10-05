@@ -16,7 +16,7 @@ export class FlashService {
     this.finishContruct = true;
   }
   createFlash(id: Flash["id"] | null, question: Flash["question"], answer: Flash["answer"], result: Flash["result"]) {
-    if (id == null) {
+    if (!id) {
       id = this.getUniqueId()
     }
     let newFlash = new Flash(id!, question, answer, result)
