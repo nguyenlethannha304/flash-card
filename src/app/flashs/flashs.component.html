@@ -1,0 +1,5 @@
+<div class="flashs-container">
+    <app-flash-detail *ngFor="let flash of flashs$ | async; trackBy:trackFlash" [flash]="flash"
+        (modifyFlashEventEmitter)="handleModifyFlashEmit($event)" (editFlashEventEmitter)="handleEditEmit($event)"
+        (deleteFlashEventEmitter)="handleDeleteEmit($event)"></app-flash-detail>
+</div>
