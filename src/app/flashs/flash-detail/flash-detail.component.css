@@ -1,0 +1,53 @@
+*
+::before
+::after {
+    box-sizing: border-box;
+}
+.card {
+    border: 1px solid black;
+    max-width: 320px;
+    margin: 1rem;
+    margin: 0 auto;
+}
+.card-header {
+    display: flex;
+    border-bottom: 1px solid black;
+}
+.correct {
+    background-color: #9CFF88;
+}
+.incorrect {
+    background-color: #F11E1E;
+}
+.card-header .question {
+    flex: 1 0 80%;
+}
+.card-header .question p {
+    text-align: center;
+}
+.card-header .flash-toggle {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.card-body p {
+    text-align: center;
+}
+.card-footer {
+    display: flex;
+}
+.card-footer > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height:32px;
+    outline: 1px solid black;
+    flex: 1 0 25%;
+    cursor: pointer;
+}
+.card-footer > div:hover {
+    background-color: #eee;
+}
+.card-footer > div > i {
+font-size: 1.25rem;
+}

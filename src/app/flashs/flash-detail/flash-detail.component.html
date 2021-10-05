@@ -1,1 +1,28 @@
-<p>flash-detail works!</p>
+<div class="card">
+    <div class="card-header" [ngClass]="cardHeaderClass">
+        <div class="question">
+            <p>{{flash.question}}</p>
+        </div>
+        <div class="flash-toggle" (click)="toggleEventEmitterFn()">
+            <i class="bi bi-arrow-down" *ngIf="!flash.show"></i>
+            <i class="bi bi-arrow-up" *ngIf="flash.show"></i>
+        </div>
+    </div>
+    <div class="card-body" *ngIf="flash.show">
+        <p>{{flash.answer}}</p>
+    </div>
+    <div class="card-footer">
+        <div class="mark-card-correct" (click)="resultEventEmitterFn(true)">
+            <i class="bi bi-check-lg"></i>
+        </div>
+        <div class="mark-card-incorrect" (click)="resultEventEmitterFn(false)">
+            <i class="bi bi-x-lg"></i>
+        </div>
+        <div class="edit-card" (click)="editEventEmitterFn()">
+            <i class="bi bi-pencil"></i>
+        </div>
+        <div class="delete-card" (click)="deleteEventEmitterFn()">
+            <i class="bi bi-trash"></i>
+        </div>
+    </div>
+</div>
