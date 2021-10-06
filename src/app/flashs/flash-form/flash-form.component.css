@@ -1,0 +1,17 @@
+
+label {
+display: block;
+font-weight: bold;
+margin-top: 0.5rem;
+}
+button {
+margin: 0.75rem 0.75rem 0.75rem 0rem;
+}
+.error p {
+    margin: 0;
+    color:red;
+    font-size: 0.75rem;
+}
+.input-invalid {
+    border: 1px solid red;
+}

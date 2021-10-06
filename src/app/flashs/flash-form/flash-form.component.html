@@ -1,1 +1,23 @@
-<p>flash-form works!</p>
+<form action="" [formGroup]="formFlash" (ngSubmit)="onSubmit()" class="form-flash">
+    <div class="question">
+        <label for="question">Question:</label>
+        <input type="text" id="question" formControlName="question"
+            [ngClass]="errorObjects['question']? 'input-invalid': ''">
+        <div class="error question-error" *ngIf="errorObjects['question']">
+            <p>{{errorObjects["question"] | renderErrors}}</p>
+        </div>
+    </div>
+    <div class="answer">
+        <label for="answer">Answer:</label>
+        <input type="text" id="answer" formControlName="answer" [ngClass]="errorObjects['answer']? 'input-invalid': ''">
+        <div class="error answer-error" *ngIf="errorObjects['answer']">
+            <p>{{errorObjects["answer"] | renderErrors}}</p>
+        </div>
+    </div>
+    <!-- Hidden fields -->
+    <input type="text" hidden formControlName="id">
+    <input type="text" hidden formControlName="result">
+    <!-- Buttons -->
+    <button type="submit">{{formFlash.value.id? "Update" : "Save"}}</button>
+    <button type="button" (click)="formFlash.reset()">Clear</button>
+</form>
