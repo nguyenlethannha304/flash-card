@@ -15,7 +15,6 @@ export class FlashDetailComponent implements OnInit, DoCheck {
     this.setCardHeaderClass()
   }
   ngDoCheck() {
-    console.log("service")
     if (this.currentFlashResult != this.flash.result) {
       this.currentFlashResult = this.flash.result
       this.setCardHeaderClass();
