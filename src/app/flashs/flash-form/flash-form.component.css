@@ -11,6 +11,7 @@ margin: 0.75rem 0.75rem 0.75rem 0rem;
     margin: 0;
     color:red;
     font-size: 0.75rem;
+    white-space: pre-line;
 }
 .input-invalid {
     border: 1px solid red;
