@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { FlashService } from '../flash.service';
 import { Flash } from '../flash.model'
 interface ErrorObjects {
@@ -13,7 +13,7 @@ interface ErrorObjects {
 export class FlashFormComponent implements OnInit {
   formFlash: FormGroup = new FormGroup({
     id: new FormControl(""),
-    question: new FormControl("", [validateNonEmpty()]),
+    question: new FormControl('', { validators: [validateNonEmpty(), this.validateDuplicateQuestion()], updateOn: 'blur' }),
     answer: new FormControl("", [validateNonEmpty()]),
     result: new FormControl(null),
   })
@@ -42,7 +42,6 @@ export class FlashFormComponent implements OnInit {
   }
   reportErrors() {
     this.errorObjects = this.getErrorFormGroup()
-    console.log(this.errorObjects)
   }
   getErrorFormGroup(): ErrorObjects {
     let errorObjects: ErrorObjects = {}
@@ -50,10 +49,23 @@ export class FlashFormComponent implements OnInit {
       let errorFormControl: ValidationErrors = this.getErrorFormControl(this.formFlash.controls[key])
       errorObjects[key] = errorFormControl
     })
+    errorObjects['formFlash'] = this.getErrorFormControl(this.formFlash)
     return errorObjects
   }
   getErrorFormControl(control: AbstractControl): ValidationErrors {
     return control.errors!
+  }
+  validateDuplicateQuestion(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      let questionValue = control.value
+      if ((questionValue) && !(this.formFlash.get('id')!.value)) {
+        let duplicateFlash = this.flashService.flashs.find(flash => flash.question == questionValue)
+        if (duplicateFlash) {
+          return { "DuplicateQuestion": "The question is already exist" }
+        }
+      }
+      return null
+    }
   }
   ngOnInit(): void {
   }
