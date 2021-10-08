@@ -19,6 +19,13 @@ export class FlashFormComponent implements OnInit {
   })
   errorObjects: ErrorObjects = {}
   constructor(private flashService: FlashService) { }
+  setFormValues(options: { id?: Flash["id"], question?: Flash["question"], answer?: Flash["answer"], result?: Flash["result"] }) {
+    if (options.id) { this.formFlash.controls["id"].setValue(options.id) }
+    if (options.question) { this.formFlash.controls["question"].setValue(options.question) }
+    if (options.answer) { this.formFlash.controls["answer"].setValue(options.answer) }
+    if (options.result) { this.formFlash.controls["result"].setValue(options.result) }
+
+  }
   onSubmit() {
     if (this.formFlash.valid) {
       this.errorObjects = {}
@@ -37,7 +44,7 @@ export class FlashFormComponent implements OnInit {
       let flash: Flash = { id, question, answer, result, show: false }
       this.flashService.editFlash(flash)
     } else {
-      this.flashService.createFlash(id, question, answer, result)
+      this.flashService.addFlash(id, question, answer, result)
     }
   }
   reportErrors() {
