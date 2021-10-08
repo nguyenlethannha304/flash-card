@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Flash } from './flash.model'
 import { Observable } from 'rxjs';
 import { FlashService } from './flash.service';
+import { FlashFormComponent } from './flash-form/flash-form.component';
 
 @Component({
   selector: 'app-flashs',
@@ -11,7 +12,7 @@ import { FlashService } from './flash.service';
 export class FlashsComponent implements OnInit {
   flashs$!: Observable<Flash[]>;
   constructor(private flashService: FlashService) { }
-
+  @ViewChild(FlashFormComponent) flashFormComp!: FlashFormComponent;
   ngOnInit(): void {
     this.flashs$ = this.flashService.flashs$
   }
@@ -22,7 +23,7 @@ export class FlashsComponent implements OnInit {
     this.flashService.editFlash(flash)
   }
   handleEditEmit(flash: Flash) {
-    ;
+    this.flashFormComp.setFormValues({ id: flash.id, question: flash.question, answer: flash.answer, result: flash.result })
   }
   handleDeleteEmit(id: Flash["id"]) {
     this.flashService.deleteFlash(id)
