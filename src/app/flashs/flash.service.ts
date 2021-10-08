@@ -7,20 +7,22 @@ import { Flash, data } from './flash.model'
 export class FlashService {
   flashs: Flash[] = [];
   flashs$!: BehaviorSubject<Flash[]>;
-  finishContruct = false;
   constructor() {
-    data.forEach(flash => {
-      this.createFlash(flash.id, flash.question, flash.answer, flash.result)
+    data.forEach(item => {
+      let flash = this.createFlash(item.id, item.question, item.answer, item.result)
+      this.flashs.push(flash)
     });
     this.flashs$ = new BehaviorSubject<Flash[]>(this.flashs)
-    this.finishContruct = true;
   }
   createFlash(id: Flash["id"] | null, question: Flash["question"], answer: Flash["answer"], result: Flash["result"]) {
     if (!id) {
       id = this.getUniqueId()
     }
-    let newFlash = new Flash(id!, question, answer, result)
-    this.updateFlashs(newFlash)
+    return new Flash(id!, question, answer, result)
+  }
+  addFlash(id: Flash["id"] | null, question: Flash["question"], answer: Flash["answer"], result: Flash["result"]) {
+    let flash = this.createFlash(id, question, answer, result)
+
   }
   editFlash(flash: Flash) {
     let flashIndex = this.flashs.findIndex(f => f.id == flash.id)
@@ -35,7 +37,7 @@ export class FlashService {
     // Push flash into last position if not provided
     this.flashs = [...this.flashs.slice(0, index), flash, ...this.flashs.slice(index + 1)]
     // Emit new value of flashs to components everytime update (Service finished Contruct)
-    if (this.finishContruct) { this.flashs$.next(this.flashs) }
+    this.flashs$.next(this.flashs)
   }
   getUniqueId() {
     // Use loop in case of infinity loop
