@@ -14,16 +14,18 @@ export class FlashService {
     });
     this.flashs$ = new BehaviorSubject<Flash[]>(this.flashs)
   }
+  // Factory method
   createFlash(id: Flash["id"] | null, question: Flash["question"], answer: Flash["answer"], result: Flash["result"]) {
     if (!id) {
       id = this.getUniqueId()
     }
     return new Flash(id!, question, answer, result)
   }
+  // For new Flash
   addFlash(id: Flash["id"] | null, question: Flash["question"], answer: Flash["answer"], result: Flash["result"]) {
     let flash = this.createFlash(id, question, answer, result)
-
   }
+  // For existing Flash
   editFlash(flash: Flash) {
     let flashIndex = this.flashs.findIndex(f => f.id == flash.id)
     this.updateFlashs(flash, flashIndex)
@@ -33,6 +35,7 @@ export class FlashService {
     this.flashs = [...this.flashs.slice(0, deleteFlashIndex), ...this.flashs.slice(deleteFlashIndex + 1)]
     this.flashs$.next(this.flashs)
   }
+  // Append flash to flashs[]
   updateFlashs(flash: Flash, index = this.flashs.length) {
     // Push flash into last position if not provided
     this.flashs = [...this.flashs.slice(0, index), flash, ...this.flashs.slice(index + 1)]

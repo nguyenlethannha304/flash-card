@@ -19,6 +19,7 @@ export class FlashFormComponent implements OnInit {
   })
   errorObjects: ErrorObjects = {}
   constructor(private flashService: FlashService) { }
+
   setFormValues(options: { id?: Flash["id"], question?: Flash["question"], answer?: Flash["answer"], result?: Flash["result"] }) {
     if (options.id) { this.formFlash.controls["id"].setValue(options.id) }
     if (options.question) { this.formFlash.controls["question"].setValue(options.question) }
@@ -26,6 +27,7 @@ export class FlashFormComponent implements OnInit {
     if (options.result) { this.formFlash.controls["result"].setValue(options.result) }
 
   }
+  // Submit functions
   onSubmit() {
     if (this.formFlash.valid) {
       this.errorObjects = {}
@@ -50,6 +52,7 @@ export class FlashFormComponent implements OnInit {
   reportErrors() {
     this.errorObjects = this.getErrorFormGroup()
   }
+  // Validate Functions
   getErrorFormGroup(): ErrorObjects {
     let errorObjects: ErrorObjects = {}
     Object.keys(this.formFlash.controls).forEach(key => {

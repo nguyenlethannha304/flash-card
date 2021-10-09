@@ -19,6 +19,7 @@ export class FlashsComponent implements OnInit {
   trackFlash(index: number, flash: Flash) {
     return flash.id
   }
+  // Handling Output from flash-detail
   handleModifyFlashEmit(flash: Flash) {
     this.flashService.editFlash(flash)
   }

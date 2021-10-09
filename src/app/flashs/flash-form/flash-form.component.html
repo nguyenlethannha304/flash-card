@@ -1,4 +1,5 @@
 <form action="" [formGroup]="formFlash" (ngSubmit)="onSubmit()" class="form-flash">
+    <!-- Question Field -->
     <div class="question">
         <label for="question">Question:</label>
         <input type="text" id="question" formControlName="question"
@@ -7,6 +8,7 @@
             <p>{{errorObjects["question"] | renderErrors}}</p>
         </div>
     </div>
+    <!-- Answer Field -->
     <div class="answer">
         <label for="answer">Answer:</label>
         <input type="text" id="answer" formControlName="answer" [ngClass]="errorObjects['answer']? 'input-invalid': ''">
